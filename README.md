@@ -1,2 +1,2 @@
 # vimrc
-my personel vimrc
+my personal vimrc
