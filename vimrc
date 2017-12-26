@@ -11,19 +11,27 @@ while c <= 'z'
 endw
                 
 set timeout ttimeoutlen=50
+command! -nargs=1 Silent
+\   execute 'silent !' . <q-args>
+\ | execute 'redraw!'
+
 map <F2> :echo 'Current time is ' . strftime('%c')<CR>
+:map <F3> :Silent cp $HOME\/.vimrc vimrc\/vimrc1<CR>:echo ".vimrc was save, Please update later."<CR>
+set shortmess+=I
+set autochdir
 :set expandtab
-:exec 'set viminfo=%,' . &viminfo
+exec 'set viminfo=%,' . &viminfo
 :set incsearch
 :set ignorecase
 :map <c-s> /
 :imap <A-right> <Esc>$i
-:map <A-right> $
-:imap <A-left> <Esc>0i
-:map <A-left> 0
+:map <A-right> $<left>
+:map <A-left> <Esc>i
 :map <c-home> 1G
 :map <c-end> G
-:map <c-left> w
+:imap <A-left> <Esc>0i
+:map <A-left> 0
+:map <c-right> w
 :map <c-left> b
 :map <c-x><c-s> :w<CR>
 :imap <C-home> <Esc>1Gi
@@ -32,6 +40,8 @@ map <F2> :echo 'Current time is ' . strftime('%c')<CR>
 :imap <C-left> <Esc>bi
 :map <A-w> y
 :map <C-y> p
+" :cmap <A-w> y
+:cmap <C-y> <C-r>"
 :map <F9> u
 :imap <F9> <Esc>ui
 :map <F10> :undo<CR>
@@ -46,6 +56,7 @@ nnoremap <s-down> <c-v>
 :cmap <C-g> <Esc>
 :map <c-s> /
 :cmap <c-s> /
+map <C-x> :echo 'C-x'
 map <C-x><C-s> :w <CR> :echo expand('%:p') "written." <CR>
 map <C-x>5 :vsplit<CR>
 map <C-x>2 :split<CR>
@@ -53,14 +64,18 @@ map <C-x>1 :only<CR>
 map <C-x>0 :hide<CR>
 map <A-end> <C-w><C-w>
 map <A-home> <C-w><C-w>
-nnoremap <c-x><c-c> <Esc>:q!<CR>
+nnoremap <c-x>c :q!<CR>
 map <c-x><c-b> :buffers<CR>
+map <c-x><c-b><up> :buffers<CR>:buffer<Space>
+map <c-x><c-k> :bd<CR>
 map <c-x><c-t> ddp<up>
+map <c-x> :echo 'C-x'<CR> 
 map <c-t> Xp
 noremap <A-u> gUaw
 noremap <a-l> guaw
 noremap <a-bs> bdw
 noremap <a-c> mb~
+noremap <a-d> dw
 map <C-k> d$
 map <c-k><c-k> dd
 nnoremap <a-/> ma
