@@ -1,6 +1,13 @@
 " Allow us to use Ctrl-s and Ctrl-q as keybinds
 silent !stty -ixon > /dev/null 2>/dev/null
 
+
+call plug#begin('~/.vim/plugged')
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+call plug#end()
+
+
 " Restore default behaviour when leaving Vim.
 autocmd VimLeave * silent !stty ixon
 let c='a'
@@ -15,7 +22,8 @@ command! -nargs=1 Silent
 \   execute 'silent !' . <q-args>
 \ | execute 'redraw!'
 
-map <F2> :echo 'Current time is ' . strftime('%c')<CR>
+map <F3> :echo 'Current time is ' . strftime('%c')<CR>
+map <F2> :windo diffthis<CR>
 :map <F3> :Silent cp $HOME\/.vimrc vimrc\/vimrc1<CR>:echo ".vimrc was save, Please update later."<CR>
 set shortmess+=I
 set autochdir
@@ -65,8 +73,7 @@ map <C-x>0 :hide<CR>
 map <A-end> <C-w><C-w>
 map <A-home> <C-w><C-w>
 nnoremap <c-x>c :q!<CR>
-map <c-x><c-b> :buffers<CR>
-map <c-x><c-b><up> :buffers<CR>:buffer<Space>
+map <c-x><c-b> :Buffers<CR>
 map <c-x><c-k> :bd<CR>
 map <c-x><c-t> ddp<up>
 map <c-x> :echo 'C-x'<CR> 
@@ -78,7 +85,7 @@ noremap <a-c> mb~
 noremap <a-d> dw
 map <C-k> d$
 map <c-k><c-k> dd
-nnoremap <a-/> ma
+nnoremap <a-m> ma
 nnoremap <a-j> `a
 nnoremap <c-x>( qq
 nnoremap <c-x>) q
